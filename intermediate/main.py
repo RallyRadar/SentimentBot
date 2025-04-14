@@ -51,4 +51,47 @@ def fetch_news(asset):
     url = f"https://newsapi.org/v2/everything?q={asset}&apiKey={NEWS_API_KEY}"
     try:
         response = requests.get(url)
-        if response.status_code ==_
+        if response.status_code == 200:
+            return [a['title'] for a in response.json().get("articles", [])[:10]]
+        return []
+    except Exception as e:
+        print(f"News error: {e}")
+        return []
+
+def fetch_youtube(asset):
+    url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&q={asset} stock&key={YOUTUBE_API_KEY}&maxResults=10"
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            return [v['snippet']['title'] for v in response.json().get("items", [])]
+        return []
+    except Exception as e:
+        print(f"YouTube error: {e}")
+        return []
+
+def analyze(texts):
+    return [(t, analyzer.polarity_scores(t)['compound']) for t in texts]
+
+def save_to_s3(df, filename):
+    csv_buffer = io.StringIO()
+    df.to_csv(csv_buffer, index=False)
+    s3.put_object(Bucket=S3_BUCKET, Key=filename, Body=csv_buffer.getvalue())
+    print(f"✅ Uploaded {filename} to S3")
+
+def run():
+    now = datetime.utcnow()
+    results = []
+
+    for ticker, name in stocks:
+        all_titles = fetch_reddit(name) + fetch_news(name) + fetch_youtube(name)
+        sentiments = analyze(all_titles)
+        avg = sum([s for _, s in sentiments]) / len(sentiments) if sentiments else 0
+        for title, score in sentiments:
+            results.append((ticker, name, title, score, now.strftime("%Y-%m-%d %H:%M")))
+
+    df = pd.DataFrame(results, columns=["Ticker", "Name", "Title", "Sentiment", "Timestamp"])
+    filename = f"sentiment_{now.strftime('%Y-%m-%d')}.csv"
+    save_to_s3(df, filename)
+
+if __name__ == "__main__":
+    run()
