@@ -6,42 +6,44 @@ Built with:
 - `praw` (Reddit API)
 - `vaderSentiment` for NLP
 - `boto3`, `pandas`, `requests`
-- Optional AWS S3, Secrets Manager, and Railway integration
+- Optional: AWS S3, Secrets Manager, Railway
 
 ---
 
 ## 🧠 What It Does
 
-SentimentBot collects public content about financial assets, analyzes sentiment, and stores structured results:
+SentimentBot fetches real-time content related to financial assets and runs sentiment analysis:
 
 | Source     | What It Fetches                        |
 |------------|----------------------------------------|
-| 🟠 Reddit   | Post titles from `/r/stocks` & others   |
-| 🟡 News     | Headlines from NewsAPI                  |
-| 🔵 YouTube  | Video titles about the asset            |
+| 🟠 Reddit   | Post titles from `/r/stocks`, etc.      |
+| 🟡 News     | Headlines via NewsAPI                   |
+| 🔵 YouTube  | Video titles via YouTube API            |
 
-Each title is analyzed using **VADER Sentiment Analysis**, scored, and saved as a `.csv` (locally or to AWS S3). You'll get:
+Using **VADER**, it assigns a sentiment score to each title, and stores:
 - ✅ Daily average sentiment per asset
-- 🚨 Alerts for extreme sentiment shifts
-- 🗃️ Historical sentiment logs (for backtesting or research)
+- 🚨 Alerts for extreme sentiment spikes/drops
+- 🗃️ Full logs for backtesting, dashboards, or signals
 
 ---
 
 ## ✅ Choose Your Setup: 3 Levels
 
-Whether you're learning or deploying to production, SentimentBot scales with you:
+Whether you're a beginner or building an institutional-grade pipeline, you can choose the level that fits you:
 
-| Level         | Setup Type                        | Best For                    |
-|---------------|-----------------------------------|-----------------------------|
-| 🟢 Basic       | Local script + config file         | Beginners, learners         |
-| 🟡 Intermediate| Local + AWS S3 or Railway          | Indie devs, daily analysis  |
-| 🔴 Advanced    | Full AWS pipeline + Secrets Manager| Teams, quants, secure deploy|
+| Level         | Folder        | Setup Description                             | Best For                    |
+|---------------|---------------|-----------------------------------------------|-----------------------------|
+| 🟢 Basic       | `basic/`       | Local script using `config.json`               | Beginners, learners         |
+| 🟡 Intermediate| `intermediate/`| Scheduled runs via Railway + AWS S3            | Indie devs, analysts        |
+| 🔴 Advanced    | `advanced/`    | Full AWS Secrets Manager, secure deployments   | Funds, quant teams, pros    |
 
-You can run it as a simple script or scale it into a cloud-hosted analytics engine. Want to go even further? Add alerts, dashboards, or crypto-specific feeds.
+Each version contains its own `main.py` — just plug in your config and run!
 
 ---
 
-## 📦 Quick Install
+## 📦 Setup & Installation
+
+### 1. Install Requirements
 
 ```bash
 pip install -r requirements.txt
