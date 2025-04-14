@@ -1,4 +1,4 @@
-🔍 SentimentBot: Multi-Source Market Sentiment Analyzer
+## 🔍 SentimentBot: Multi-Source Market Sentiment Analyzer
 
 **SentimentBot** is an open-source tool that tracks **public sentiment** across Reddit, News articles, and YouTube to help you analyze the mood around **stocks, crypto, and commodities**.
 
