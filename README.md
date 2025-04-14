@@ -43,11 +43,6 @@ Each version contains its own `main.py` — just plug in your config and run!
 
 ## 📦 Setup & Installation
 
-### 1. Install Requirements
-
-```bash
-pip install -r requirements.txt
-
 ### 🕑 Schedule It on Railway (Optional)
 
 Once you deploy the `intermediate` version to [Railway](https://railway.app/), you can schedule it to run **automatically** every hour or every day:
@@ -70,3 +65,10 @@ Once saved, Railway will automatically run your sentiment analysis on the schedu
 
 ### 🧪 Tip:
 You can monitor logs, failures, and results directly in the Railway dashboard — ideal for hands-off market monitoring!
+
+
+### 1. Install Requirements
+
+```bash
+pip install -r requirements.txt
+
