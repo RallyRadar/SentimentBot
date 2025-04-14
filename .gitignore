@@ -1,0 +1,18 @@
+# Ignore your personal config file with secrets
+config.json
+
+# Ignore Python cache and virtual environment files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.venv/
+
+# Ignore system or IDE files
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
