@@ -47,3 +47,26 @@ Each version contains its own `main.py` — just plug in your config and run!
 
 ```bash
 pip install -r requirements.txt
+
+### 🕑 Schedule It on Railway (Optional)
+
+Once you deploy the `intermediate` version to [Railway](https://railway.app/), you can schedule it to run **automatically** every hour or every day:
+
+#### ✅ Steps:
+1. Go to your **project dashboard** on Railway  
+2. Navigate to **Settings → Cron Jobs**  
+3. Click **“Add Cron Job”**  
+4. Use these values:
+
+| Field       | Value                         |
+|-------------|-------------------------------|
+| Name        | `Run Sentiment Bot`           |
+| Command     | `python intermediate/main.py` |
+| Schedule    | `0 7 * * *` (daily at 7AM UTC) or `0 * * * *` (every hour)
+
+Once saved, Railway will automatically run your sentiment analysis on the schedule you define. No server needed. No manual steps.
+
+---
+
+### 🧪 Tip:
+You can monitor logs, failures, and results directly in the Railway dashboard — ideal for hands-off market monitoring!
